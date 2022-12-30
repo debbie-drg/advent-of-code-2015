@@ -27,9 +27,7 @@ class Wires:
             value = self.try_retrieve_value(split_instructions[1])
             if value is None:
                 return False
-            self.wire_values[split_instructions[3]] = (
-                ~value + 2**NUMBER_BITS
-            )
+            self.wire_values[split_instructions[3]] = ~value + 2**NUMBER_BITS
             return True
         value_1 = self.try_retrieve_value(split_instructions[0])
         value_2 = self.try_retrieve_value(split_instructions[2])
@@ -55,17 +53,26 @@ class Wires:
             for index, instruction in enumerate(instructions):
                 if self.perform_instruction(instruction):
                     to_remove.append(index)
-            instructions = [instructions[index] for index in range(len(instructions)) if index not in to_remove]
-    
-    def override_and_perform(self, instructions: list[str], value_to_take: str, value_to_replace: str):
-        self.wire_values = {value_to_replace : self.wire_values[value_to_take]}
+            instructions = [
+                instructions[index]
+                for index in range(len(instructions))
+                if index not in to_remove
+            ]
+
+    def override_and_perform(
+        self, instructions: list[str], value_to_take: str, value_to_replace: str
+    ):
+        self.wire_values = {value_to_replace: self.wire_values[value_to_take]}
         to_remove = []
         for index, instruction in enumerate(instructions):
             if instruction.split(" ")[-1] == value_to_replace:
                 to_remove.append(index)
-        instructions = [instructions[index] for index in range(len(instructions)) if index not in to_remove]
+        instructions = [
+            instructions[index]
+            for index in range(len(instructions))
+            if index not in to_remove
+        ]
         self.perform_instructions_batch(instructions)
-
 
 
 if __name__ == "__main__":
@@ -80,4 +87,6 @@ if __name__ == "__main__":
     print(f"The value of wire a is {wires.wire_values['a']}.")
 
     wires.override_and_perform(instructions, "a", "b")
-    print(f"After overriding wire b with the value of wire a, the value of wire a is {wires.wire_values['a']}.")
+    print(
+        f"After overriding wire b with the value of wire a, the value of wire a is {wires.wire_values['a']}."
+    )

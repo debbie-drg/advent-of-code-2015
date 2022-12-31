@@ -6,9 +6,9 @@ EMPTY_STRING_SIZE = sys.getsizeof("")
 def in_memory_size(string_line: str):
     return len(string_line) - len(eval(string_line))
 
-def encoded_size(string_line: str):
-    return 2 + string_line.count('\\') + string_line.count('"')
 
+def encoded_size(string_line: str):
+    return 2 + string_line.count("\\") + string_line.count('"')
 
 
 if __name__ == "__main__":

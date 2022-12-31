@@ -7,7 +7,7 @@ def in_memory_size(string_line: str):
     return len(string_line) - len(eval(string_line))
 
 
-def encoded_size(string_line: str):
+def encoded_size_difference(string_line: str):
     return 2 + string_line.count("\\") + string_line.count('"')
 
 
@@ -21,5 +21,5 @@ if __name__ == "__main__":
     result = sum(map(in_memory_size, strings))
     print(f"The literal minus in memory number of characters is {result}.")
 
-    result_2 = sum(map(encoded_size, strings))
+    result_2 = sum(map(encoded_size_difference, strings))
     print(f"The encoded size minus the initial size is {result_2}.")

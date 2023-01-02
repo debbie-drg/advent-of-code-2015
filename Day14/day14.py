@@ -9,13 +9,19 @@ class ReinderCompetition:
         return max(
             [reinder.distance_travelled(number_minutes) for reinder in self.reinders]
         )
-    
+
     def points(self, number_minutes: int):
         scores = [0] * len(self.reinders)
         for _ in range(number_minutes):
-            current_distances = [reinder.travel_one_second() for reinder in self.reinders]
+            current_distances = [
+                reinder.travel_one_second() for reinder in self.reinders
+            ]
             max_distance = max(current_distances)
-            winner_indices = [index for index in range(len(self.reinders)) if current_distances[index] == (max_distance)]
+            winner_indices = [
+                index
+                for index in range(len(self.reinders))
+                if current_distances[index] == (max_distance)
+            ]
             for index in winner_indices:
                 scores[index] += 1
         return scores
@@ -33,12 +39,15 @@ class Reinder:
         self.travelled = 0
 
     def distance_travelled(self, number_minutes: int):
-        number_loops, remaining_time = divmod(number_minutes, self.time_flying + self.time_resting)
+        number_loops, remaining_time = divmod(
+            number_minutes, self.time_flying + self.time_resting
+        )
         remaining_flying_time = min(remaining_time, self.time_flying)
         return (
-            number_loops * self.time_flying * self.speed + remaining_flying_time * self.speed
+            number_loops * self.time_flying * self.speed
+            + remaining_flying_time * self.speed
         )
-    
+
     def travel_one_second(self) -> int:
         if self.flying:
             self.time_flown += 1
@@ -52,7 +61,6 @@ class Reinder:
                 self.flying = True
                 self.time_rested = 0
         return self.travelled
-
 
 
 if __name__ == "__main__":

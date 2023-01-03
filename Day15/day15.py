@@ -5,10 +5,10 @@ def fixed_length_partitions(number: int, number_partitions: int):
     if number_partitions == 1:
         yield (number,)
     else:
-        yield (number,) + tuple([0] * (number_partitions - 1))
         for i in range(0, number):
             for p in fixed_length_partitions(number - i, number_partitions - 1):
                 yield (i,) + p
+        yield (number,) + tuple([0] * (number_partitions - 1))
 
 
 class Ingredient:

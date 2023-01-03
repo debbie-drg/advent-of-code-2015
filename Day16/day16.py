@@ -19,20 +19,20 @@ FEWER = {"pomeranians", "goldfish"}
 
 def check_sue(sue_line: list[str], updated_info=False) -> bool:
     for index in [2, 4, 6]:
+        current_key = sue_line[index].removesuffix(":")
+        current_value = int(sue_line[index + 1].removesuffix(","))
         try:
-            current_key = sue_line[index].removesuffix(":")
-            current_value = int(sue_line[index + 1].removesuffix(","))
             correct_sue_value = SUE_DATA[current_key]
-            if updated_info and current_key in GREATER:
-                if correct_sue_value >= current_value:
-                    return False
-            elif updated_info and current_key in FEWER:
-                if correct_sue_value <= current_value:
-                    return False
-            elif correct_sue_value != current_value:
-                return False
         except KeyError:
             continue
+        if updated_info and current_key in GREATER:
+            if correct_sue_value >= current_value:
+                return False
+        elif updated_info and current_key in FEWER:
+            if correct_sue_value <= current_value:
+                return False
+        elif correct_sue_value != current_value:
+            return False
     return True
 
 

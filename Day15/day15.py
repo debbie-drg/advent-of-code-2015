@@ -21,8 +21,8 @@ class IngredientCombination:
     def __init__(self, ingredient_data: list[list[str]]):
         self.ingredients = [Ingredient(line) for line in ingredient_data]
 
-    def score(self, number_tablespoons: int, number_calories=None) -> int:
-        max_score = -1e10
+    def score(self, number_tablespoons: int, number_calories: int | None = None) -> int:
+        max_score = int(-1e10)
         for partition in fixed_length_partitions(
             number_tablespoons, len(self.ingredients)
         ):
@@ -35,7 +35,7 @@ class IngredientCombination:
             max_score = max(max_score, current_score)
         return max_score
 
-    def partition_score(self, partition: tuple[int]):
+    def partition_score(self, partition: tuple[int]) -> int:
         score = 1
         for index in range(4):
             score *= max(
@@ -49,7 +49,7 @@ class IngredientCombination:
             )
         return score
 
-    def calorie_count(self, partition: tuple[int]):
+    def calorie_count(self, partition: tuple[int]) -> int:
         calories = 0
         for index in range(len(self.ingredients)):
             calories += partition[index] * self.ingredients[index].properties[4]

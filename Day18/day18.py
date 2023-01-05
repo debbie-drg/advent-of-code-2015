@@ -19,11 +19,16 @@ class LightAnimation:
                     self.lights.add((hor_index, ver_index))
         if self.corners_on:
             self.add_corners()
-    
+
     def add_corners(self):
-        self.lights.update([
-            (0,0), (0, self.width - 1), (self.height - 1, 0), (self.height - 1, self.width - 1) 
-        ])
+        self.lights.update(
+            [
+                (0, 0),
+                (0, self.width - 1),
+                (self.height - 1, 0),
+                (self.height - 1, self.width - 1),
+            ]
+        )
 
     def get_neighbours(self, position: tuple[int, int]) -> set[tuple[int, int]]:
         neighbours = set()
@@ -46,11 +51,11 @@ class LightAnimation:
         self.lights = next_lights
         if self.corners_on:
             self.add_corners()
-    
+
     def multiple_steps(self, number_steps: int):
         for _ in range(number_steps):
             self.next_step()
-    
+
     def number_lights_on(self):
         return len(self.lights)
 
@@ -78,4 +83,6 @@ if __name__ == "__main__":
 
     light_animation = LightAnimation(light_initial_status, True)
     light_animation.multiple_steps(100)
-    print(f"If the corner lights stay on, the number is {light_animation.number_lights_on()}.")
+    print(
+        f"If the corner lights stay on, the number is {light_animation.number_lights_on()}."
+    )

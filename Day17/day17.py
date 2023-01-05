@@ -18,20 +18,17 @@ def _find_combinations_adding(
     if capacity == 0:
         containers_used[number_containers] += 1
         return containers_used
-    elif capacity < 0:
+    if capacity < 0 or not containers:
         return containers_used
-    if len(containers) > 1:
-        containers_used = _find_combinations_adding(
-            containers[1:],
-            capacity - containers[0],
-            containers_used,
-            number_containers + 1,
-        )
-        containers_used = _find_combinations_adding(
-            containers[1:], capacity, containers_used, number_containers
-        )
-    elif capacity == containers[0]:
-        containers_used[number_containers + 1] += 1
+    containers_used = _find_combinations_adding(
+        containers[1:],
+        capacity - containers[0],
+        containers_used,
+        number_containers + 1,
+    )
+    containers_used = _find_combinations_adding(
+        containers[1:], capacity, containers_used, number_containers
+    )
     return containers_used
 
 

@@ -24,7 +24,6 @@ def find_first_house_bis(min_presents: int) -> int:
             presents_per_house[j] += i * 11
         if presents_per_house[i] >= min_presents:
             return i
-    print(max(presents_per_house))
     raise AssertionError
 
 

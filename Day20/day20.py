@@ -7,9 +7,10 @@ def find_first_house(min_presents: int) -> int:
     for i in range(1, min_presents):
         for j in range(i, min_presents, i):
             presents_per_house[j] += i * 10
-        if presents_per_house[i] >= 10*min_presents:
+        if presents_per_house[i] >= 10 * min_presents:
             return i
     raise AssertionError
+
 
 def find_first_house_bis(min_presents: int) -> int:
     presents_per_house = [0] * (min_presents // 11)
@@ -33,6 +34,9 @@ if __name__ == "__main__":
     except IndexError:
         file_name = "input.txt"
     input_value = int(open(file_name).read().strip())
-    print(f"The first house to get at least {input_value} presents is {find_first_house(input_value)}.")
-    print(f"If instead each elf only visits 50 houses but leaves 11 presents, the first one is {find_first_house_bis(input_value)}.")
-
+    print(
+        f"The first house to get at least {input_value} presents is {find_first_house(input_value)}."
+    )
+    print(
+        f"If instead each elf only visits 50 houses but leaves 11 presents, the first one is {find_first_house_bis(input_value)}."
+    )

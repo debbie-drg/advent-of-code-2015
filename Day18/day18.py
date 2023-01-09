@@ -18,10 +18,10 @@ class LightAnimation:
                 if character == "#":
                     self.lights.add((hor_index, ver_index))
         if self.corners_on:
-            self.add_corners()
+            self.add_corners(self.lights)
 
-    def add_corners(self):
-        self.lights.update(
+    def add_corners(self, lights):
+        lights.update(
             [
                 (0, 0),
                 (0, self.width - 1),
@@ -48,13 +48,17 @@ class LightAnimation:
                     number_neighbours == 2 and (hor_index, ver_index) in self.lights
                 ):
                     next_lights.add((hor_index, ver_index))
-        self.lights = next_lights
         if self.corners_on:
-            self.add_corners()
+            self.add_corners(next_lights)
+        if self.lights == next_lights:
+            return True
+        self.lights = next_lights
+        return False
 
     def multiple_steps(self, number_steps: int):
         for _ in range(number_steps):
-            self.next_step()
+            if self.next_step():
+                break
 
     def number_lights_on(self):
         return len(self.lights)

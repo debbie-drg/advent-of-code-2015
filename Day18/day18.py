@@ -39,7 +39,7 @@ class LightAnimation:
     def get_on_neighbours(self, position: tuple[int, int]) -> int:
         return len(self.get_neighbours(position).intersection(self.lights))
 
-    def next_step(self):
+    def next_step(self) -> bool:
         next_lights = set()
         for hor_index in range(self.height):
             for ver_index in range(self.width):
